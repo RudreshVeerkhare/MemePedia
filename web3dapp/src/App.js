@@ -6,8 +6,6 @@ import Header from './components/header.js';
 import Features from './components/features';
 import About from './components/about';
 
-
-
 import Home from './Home';
 import Contact from './components/contact';
 import JsonData from './data/data.json';
