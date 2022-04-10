@@ -19,7 +19,17 @@
  */
 require("dotenv").config();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const { REACT_APP_API_URL, REACT_APP_MNEMONIC } = process.env;
+const { REACT_APP_API_URL, REACT_APP_MNEMONIC, REACT_APP_PRIVATE_KEY } =
+    process.env;
+
+const Web3 = require("web3");
+const fs = require("fs");
+const ContractKit = require("@celo/contractkit");
+const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+console.log(REACT_APP_PRIVATE_KEY);
+const kit = ContractKit.newKitFromWeb3(web3);
+kit.connection.addAccount(REACT_APP_PRIVATE_KEY);
+
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
@@ -76,6 +86,11 @@ module.exports = {
             confirmations: 2,
             timeoutBlocks: 200,
             skipDryRun: true,
+        },
+        alfajores: {
+            provider: kit.connection.web3.currentProvider, // CeloProvider
+            network_id: 44787, // Alfajores network id
+            gas: 20000000,
         },
 
         // Another network with more advanced options...
